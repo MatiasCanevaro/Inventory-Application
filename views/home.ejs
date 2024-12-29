@@ -55,7 +55,7 @@
     </div>
     <div class="container" id="categories-container">
         <% categories.forEach(category => { %>
-            <div class="category-card" onclick="window.location.href='/item/<%= category.id %>'">
+            <div class="category-card" onclick="window.location.href='/category/<%= category.id %>/items'">
                 <h3><%= category.name %></h3>
             </div>
         <% }); %>
