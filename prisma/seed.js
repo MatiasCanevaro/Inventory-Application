@@ -2,6 +2,12 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
+  const existingCategory = await prisma.category.findFirst();
+  if (existingCategory) {
+    console.log("Categories and items have already been seeded.");
+    return;
+  }
+
   await prisma.category.createMany({
     data: [
       { name: "Electronics" },
