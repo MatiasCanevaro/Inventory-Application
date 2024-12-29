@@ -1,10 +1,17 @@
-const db = require("../db/queries");
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 
 exports.getAllCategoryItems = async (req, res) => {
     try {
         const { categoryId } = req.params;
-        const category = await db.getById("category",categoryId);
-        const items = await db.getAllByValue("item","category_id",categoryId);
+        const category = await prisma.category.findUnique({
+            where: { id: categoryId },
+        });
+        const items = await prisma.item.findMany({
+            where: {
+              category_id: categoryId,
+            },
+        });
         res.render("items", {
             title: "Items",
             category: category,

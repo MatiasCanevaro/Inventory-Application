@@ -1,8 +1,9 @@
-const db = require("../db/queries");
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 
 exports.get = async (req, res) => {
     try {
-        const categories = await db.getAll("category");
+        const categories = await prisma.category.findMany();
         res.render("home", {
             title: "Home",
             categories: categories
